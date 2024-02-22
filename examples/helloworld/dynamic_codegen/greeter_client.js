@@ -24,18 +24,16 @@ var protoLoader = require('@grpc/proto-loader');
 var packageDefinition = protoLoader.loadSync(
   PROTO_PATH,
   {
-    keepCase: true,
-    longs: String,
-    enums: String,
-    defaults: true,
-    oneofs: true
+    // keepCase: true,
+    // longs: String,
+    // enums: String,
+    // defaults: true,
+    // oneofs: true
   });
-var hello_proto = grpc.loadPackageDefinition(packageDefinition).helloworld;
+const hello_proto = grpc.loadPackageDefinition(packageDefinition);
 
 function main() {
-  var argv = parseArgs(process.argv.slice(2), {
-    string: 'target'
-  });
+
   var target = 'localhost:50051';
 
   var client = new hello_proto.YourService(target,
@@ -57,7 +55,7 @@ function main() {
   };
 
   client.AddUser(addUserRequest, function (err, response) {
-    console.log('User added:', response.message);
+    console.log('User added:', response);
   });
 
   var getUserRequest = {
@@ -65,7 +63,7 @@ function main() {
   };
 
   client.GetUser(getUserRequest, function (err, response) {
-    console.log('User:', response.message);
+    console.log('User:', response);
   });
 
   var operationRequest = {
@@ -75,7 +73,7 @@ function main() {
   };
 
   client.Operation(operationRequest, function (err, response) {
-    console.log('Result:', response.message);
+    console.log('Result:', response);
   });
 
 }
