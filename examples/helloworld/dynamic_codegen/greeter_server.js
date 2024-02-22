@@ -29,11 +29,12 @@ var protoLoader = require('@grpc/proto-loader');
 // Carrega el protocol buffer de manera sincrònica
 var packageDefinition = protoLoader.loadSync(
     PROTO_PATH,
-    {keepCase: true,
-     longs: String,
-     enums: String,
-     defaults: true,
-     oneofs: true
+    {
+    //   keepCase: true,
+    //  longs: String,
+    //  enums: String,
+    //  defaults: true,
+    //  oneofs: true
     });
 var exercici_proto = grpc.loadPackageDefinition(packageDefinition);
 
