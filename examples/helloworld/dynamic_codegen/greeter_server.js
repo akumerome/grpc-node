@@ -58,10 +58,9 @@ function main() {
 
   // Crea una nova instància del servidor gRPC
   var server = new grpc.Server();
-
+  console.log(exercici_proto);
   // Afegeix el servei YourService amb els mètodes RPC implementats
   server.addService(exercici_proto.YourService.service, {GetUser: GetUser});
-
   // Enllaça el servidor a l'adreça '0.0.0.0:50051' amb credencials insegures
   server.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure(), () => {
     server.start();
