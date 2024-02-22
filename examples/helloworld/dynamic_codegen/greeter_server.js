@@ -16,7 +16,11 @@
  *
  */
 
+
 // 1 CARREGA EL FITXER DEL PROTOCOL BUFFER
+
+var PROTO_PATH = __dirname + '/../../protos/exercici.proto';
+
 
 // Especifica la ruta al fitxer del protocol buffer
 var PROTO_PATH = __dirname + '/../../protos/helloworld.proto'; 
