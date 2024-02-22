@@ -16,7 +16,7 @@
  *
  */
 
-var PROTO_PATH = __dirname + '/../../protos/helloworld.proto';
+var PROTO_PATH = __dirname + '/../../protos/exercici.proto';
 
 var parseArgs = require('minimist');
 var grpc = require('@grpc/grpc-js');

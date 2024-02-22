@@ -1,0 +1,31 @@
+
+syntax = "proto3";
+
+message GetUserRequest {
+  int32 user_id = 1;
+}
+
+message AddUserRequest {
+  string name = 1;
+  string email = 2;
+}
+
+message UserData {
+  string name = 1;
+  string email = 2;
+}
+
+message SumRequest {
+    int32 number1 = 1;
+    int32 number2 = 2;
+}
+
+message num {
+  int32 number = 1;
+}
+
+service YourService {
+    rpc GetUser(GetUserRequest) returns (UserData);
+    rpc AddUser(AddUserRequest) returns (UserData);
+    rpc Sum(SumRequest) returns (num);
+}
