@@ -24,13 +24,13 @@ var protoLoader = require('@grpc/proto-loader');
 var packageDefinition = protoLoader.loadSync(
   PROTO_PATH,
   {
-    // keepCase: true,
-    // longs: String,
-    // enums: String,
-    // defaults: true,
-    // oneofs: true
+    keepCase: true,
+    longs: String,
+    enums: String,
+    defaults: true,
+    oneofs: true
   });
-const hello_proto = grpc.loadPackageDefinition(packageDefinition);
+var exercici_proto = grpc.loadPackageDefinition(packageDefinition).exercici;
 
 function main() {
 

@@ -1,6 +1,14 @@
 
 syntax = "proto3";
 
+package exercici;
+
+service YourService {
+    rpc GetUser(GetUserRequest) returns (UserData);
+    rpc AddUser(AddUserRequest) returns (UserData);
+    rpc Operation(OperationRequest) returns (num);
+}
+
 message GetUserRequest {
   string email = 1;
 }
@@ -25,8 +33,3 @@ message num {
   int32 number = 1;
 }
 
-service YourService {
-    rpc GetUser(GetUserRequest) returns (UserData);
-    rpc AddUser(AddUserRequest) returns (UserData);
-    rpc Operation(OperationRequest) returns (num);
-}
