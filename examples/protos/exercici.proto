@@ -2,7 +2,7 @@
 syntax = "proto3";
 
 message GetUserRequest {
-  int32 user_id = 1;
+  string email = 1;
 }
 
 message AddUserRequest {
@@ -18,6 +18,7 @@ message UserData {
 message OperationRequest {
     int32 number1 = 1;
     int32 number2 = 2;
+    string operation = 3;
 }
 
 message num {
