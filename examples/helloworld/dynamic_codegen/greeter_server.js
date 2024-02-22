@@ -70,8 +70,6 @@ function AddUser(call, callback) {
 // 3 INICIA SERVIDOR RPC
 function main() {
 
-  console.log(hello_proto);
-
   // Crea una nova instància del servidor gRPC
   var server = new grpc.Server();
 

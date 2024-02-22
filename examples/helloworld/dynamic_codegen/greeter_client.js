@@ -36,7 +36,7 @@ function main() {
 
   var target = 'localhost:50051';
 
-  var client = new hello_proto.YourService(target,
+  var client = new exercici_proto.YourService(target,
     grpc.credentials.createInsecure());
 
   // var user = 'Àlvaro';
