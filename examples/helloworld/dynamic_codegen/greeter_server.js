@@ -35,7 +35,7 @@ var packageDefinition = protoLoader.loadSync(
      defaults: true,
      oneofs: true
     });
-var exercici_proto = grpc.loadPackageDefinition(packageDefinition).exercici;
+var exercici_proto = grpc.loadPackageDefinition(packageDefinition);
 
 
 // 2 IMPLEMENTA MÈTODES RPC
@@ -56,9 +56,11 @@ function GetUser(call, callback) {
 // 3 INICIA SERVIDOR RPC
 function main() {
 
+  console.log(exercici_proto);
+
   // Crea una nova instància del servidor gRPC
   var server = new grpc.Server();
-  console.log(exercici_proto);
+  
   // Afegeix el servei YourService amb els mètodes RPC implementats
   server.addService(exercici_proto.YourService.service, {GetUser: GetUser});
   // Enllaça el servidor a l'adreça '0.0.0.0:50051' amb credencials insegures
