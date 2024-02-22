@@ -47,8 +47,14 @@ function main() {
   if (argv._.length > 0) {
     user = argv._[0];
   } else {
-    user = 'Àlvaro';
+    user_name = 'Àlvaro';
+    user_mail = 'akumenius@gmail.com';
   }
+
+  client.GetUser({name: user_name, mail: user_mail}, function(err, response) {
+    console.log('Aquest és el teu usuari:', response.message);
+  });
+
   client.sayHello({name: user}, function(err, response) {
     console.log('Greeting:', response.message);
   });

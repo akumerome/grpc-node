@@ -19,11 +19,8 @@
 
 // 1 CARREGA EL FITXER DEL PROTOCOL BUFFER
 
-var PROTO_PATH = __dirname + '/../../protos/exercici.proto';
-
-
 // Especifica la ruta al fitxer del protocol buffer
-var PROTO_PATH = __dirname + '/../../protos/helloworld.proto'; 
+var PROTO_PATH = __dirname + '/../../protos/exercici.proto';
 
 // Dependències necessàries per treballar amb gRPC i carregar buffers de protocol
 var grpc = require('@grpc/grpc-js');
@@ -38,7 +35,7 @@ var packageDefinition = protoLoader.loadSync(
      defaults: true,
      oneofs: true
     });
-var hello_proto = grpc.loadPackageDefinition(packageDefinition).helloworld;
+var exercici_proto = grpc.loadPackageDefinition(packageDefinition).exercici;
 
 
 // 2 IMPLEMENTA MÈTODES RPC
@@ -52,14 +49,18 @@ function sayHelloAgain(call, callback) {
   callback(null, {message: 'Hello again, ' + call.request.name});
 }
 
+function GetUser(call, callback) {
+  callback(null, {message: 'Hello ' + call.request.name});  
+}
+
 // 3 INICIA SERVIDOR RPC
 function main() {
 
   // Crea una nova instància del servidor gRPC
   var server = new grpc.Server();
 
-  // Afegeix el servei Greeter amb els mètodes RPC implementats
-  server.addService(hello_proto.Greeter.service, {sayHello: sayHello, sayHelloAgain: sayHelloAgain});
+  // Afegeix el servei YourService amb els mètodes RPC implementats
+  server.addService(exercici_proto.YourService.service, {GetUser: GetUser});
 
   // Enllaça el servidor a l'adreça '0.0.0.0:50051' amb credencials insegures
   server.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure(), () => {
