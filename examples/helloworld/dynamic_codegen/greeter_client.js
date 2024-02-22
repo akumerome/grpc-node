@@ -22,14 +22,15 @@ var parseArgs = require('minimist');
 var grpc = require('@grpc/grpc-js');
 var protoLoader = require('@grpc/proto-loader');
 var packageDefinition = protoLoader.loadSync(
-    PROTO_PATH,
-    {keepCase: true,
-     longs: String,
-     enums: String,
-     defaults: true,
-     oneofs: true
-    });
-var hello_proto = grpc.loadPackageDefinition(packageDefinition).helloworld;
+  PROTO_PATH,
+  {
+    keepCase: true,
+    longs: String,
+    enums: String,
+    defaults: true,
+    oneofs: true
+  });
+var exercici_proto = grpc.loadPackageDefinition(packageDefinition).exercici;
 
 function main() {
   var argv = parseArgs(process.argv.slice(2), {
@@ -41,9 +42,10 @@ function main() {
   } else {
     target = 'localhost:50051';
   }
-  var client = new hello_proto.Greeter(target,
-                                       grpc.credentials.createInsecure());
-  var user;
+  var client = new exercici_proto.YourService(target,
+    grpc.credentials.createInsecure());
+  var user_name;
+  var user_mail;
   if (argv._.length > 0) {
     user = argv._[0];
   } else {
@@ -51,17 +53,27 @@ function main() {
     user_mail = 'akumenius@gmail.com';
   }
 
-  client.GetUser({name: user_name, mail: user_mail}, function(err, response) {
-    console.log('Aquest és el teu usuari:', response.message);
+  client.GetUser({ email: user_mail }, function(err, response) {
+    console.log('La informació de usuari demanat:', response);
   });
 
-  client.sayHello({name: user}, function(err, response) {
-    console.log('Greeting:', response.message);
+
+  client.AddUser({ name: user_name, email: user_mail }, function(err, response) {
+    console.log('Has afegit el següent usuari:', response);
   });
 
-  client.sayHelloAgain({name: user}, function(err, response) {
-    console.log('Greeting:', response.message);
+  client.GetUser({ email: user_mail }, function(err, response) {
+    console.log('La informació de usuari demanat:', response);
   });
+
+
+  // client.sayHello({name: user}, function(err, response) {
+  //   console.log('Greeting:', response.message);
+  // });
+
+  // client.sayHelloAgain({name: user}, function(err, response) {
+  //   console.log('Greeting:', response.message);
+  // });
 }
 
 main();
