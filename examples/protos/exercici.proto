@@ -27,5 +27,5 @@ message num {
 service YourService {
     rpc GetUser(GetUserRequest) returns (UserData);
     rpc AddUser(AddUserRequest) returns (UserData);
-    rpc Sum(OperationRequest) returns (num);
+    rpc Operation(OperationRequest) returns (num);
 }
