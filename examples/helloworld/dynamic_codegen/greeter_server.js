@@ -16,10 +16,20 @@
  *
  */
 
+
+// 1 CARREGA EL FITXER DEL PROTOCOL BUFFER
+
 var PROTO_PATH = __dirname + '/../../protos/exercici.proto';
 
+
+// Especifica la ruta al fitxer del protocol buffer
+var PROTO_PATH = __dirname + '/../../protos/helloworld.proto'; 
+
+// Dependències necessàries per treballar amb gRPC i carregar buffers de protocol
 var grpc = require('@grpc/grpc-js');
 var protoLoader = require('@grpc/proto-loader');
+
+// Carrega el protocol buffer de manera sincrònica
 var packageDefinition = protoLoader.loadSync(
     PROTO_PATH,
     {keepCase: true,
@@ -30,9 +40,10 @@ var packageDefinition = protoLoader.loadSync(
     });
 var hello_proto = grpc.loadPackageDefinition(packageDefinition).helloworld;
 
-/**
- * Implements the SayHello RPC method.
- */
+
+// 2 IMPLEMENTA MÈTODES RPC
+
+// Aquests mètodes s'invocaràn quan els clients facin les sol·licituds corresponents
 function sayHello(call, callback) {
   callback(null, {message: 'Hello ' + call.request.name});  
 }
@@ -41,16 +52,20 @@ function sayHelloAgain(call, callback) {
   callback(null, {message: 'Hello again, ' + call.request.name});
 }
 
-/**
- * Starts an RPC server that receives requests for the Greeter service at the
- * sample server port
- */
+// 3 INICIA SERVIDOR RPC
 function main() {
+
+  // Crea una nova instància del servidor gRPC
   var server = new grpc.Server();
+
+  // Afegeix el servei Greeter amb els mètodes RPC implementats
   server.addService(hello_proto.Greeter.service, {sayHello: sayHello, sayHelloAgain: sayHelloAgain});
+
+  // Enllaça el servidor a l'adreça '0.0.0.0:50051' amb credencials insegures
   server.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure(), () => {
     server.start();
   });
 }
 
+// Engega el servidor
 main();
