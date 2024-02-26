@@ -33,30 +33,21 @@ var packageDefinition = protoLoader.loadSync(
 var exercici_proto = grpc.loadPackageDefinition(packageDefinition).exercici;
 
 function main() {
-  var argv = parseArgs(process.argv.slice(2), {
-    string: 'target'
-  });
-  var target;
-  if (argv.target) {
-    target = argv.target;
-  } else {
-    target = 'localhost:50051';
-  }
+  
+  var target = 'localhost:50051';
+  
   var client = new exercici_proto.YourService(target,
     grpc.credentials.createInsecure());
+
   var user_name;
   var user_mail;
-  if (argv._.length > 0) {
-    user = argv._[0];
-  } else {
-    user_name = 'Àlvaro';
-    user_mail = 'akumenius@gmail.com';
-  }
-
+  
+  user_name = 'Àlvaro';
+  user_mail = 'akumenius@gmail.com';
+  
   client.GetUser({ email: user_mail }, function(err, response) {
     console.log('La informació de usuari demanat:', response);
   });
-
 
   client.AddUser({ name: user_name, email: user_mail }, function(err, response) {
     console.log('Has afegit el següent usuari:', response);
@@ -65,15 +56,6 @@ function main() {
   client.GetUser({ email: user_mail }, function(err, response) {
     console.log('La informació de usuari demanat:', response);
   });
-
-
-  // client.sayHello({name: user}, function(err, response) {
-  //   console.log('Greeting:', response.message);
-  // });
-
-  // client.sayHelloAgain({name: user}, function(err, response) {
-  //   console.log('Greeting:', response.message);
-  // });
 }
 
 main();
