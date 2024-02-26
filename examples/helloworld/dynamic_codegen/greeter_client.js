@@ -39,34 +39,25 @@ function main() {
   var client = new exercici_proto.YourService(target,
     grpc.credentials.createInsecure());
 
-  // var user = 'Àlvaro';
-
-  // client.sayHello({ name: user }, function (err, response) {
-  //   console.log('Greeting:', response.message);
-  // });
-
-  // client.sayHelloAgain({ name: user }, function (err, response) {
-  //   console.log('Greeting:', response.message);
-  // });
-
-  var addUserRequest = {
-    name: 'Àlvaro',
-    email: ''
-  };
-
-  client.AddUser(addUserRequest, function (err, response) {
-    console.log('User added:', response);
+  var user_name;
+  var user_mail;
+  
+  user_name = 'Àlvaro';
+  user_mail = 'akumenius@gmail.com';
+  
+  client.GetUser({ email: user_mail }, function(err, response) {
+    console.log('La informació de usuari demanat:', response);
   });
 
-  var getUserRequest = {
-    email: ''
-  };
-
-  client.GetUser(getUserRequest, function (err, response) {
-    console.log('User:', response);
+  client.AddUser({ name: user_name, email: user_mail }, function(err, response) {
+    console.log('Has afegit el següent usuari:', response);
   });
 
-  var operationRequest = {
+  client.GetUser({ email: user_mail }, function(err, response) {
+    console.log('La informació de usuari demanat:', response);
+  });
+
+  /*var operationRequest = {
     number1: 3,
     number2: 2,
     operation: 'sum'
@@ -74,7 +65,7 @@ function main() {
 
   client.Operation(operationRequest, function (err, response) {
     console.log('Result:', response);
-  });
+  });*/
 
 }
 
